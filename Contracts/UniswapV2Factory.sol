@@ -4,27 +4,24 @@ contract to create a pool trading USDC and AssetSwapper
 
 pragma solidity >=0.5.0;
 
-interface IUniswapV2Factory {
-    event PairCreated(address indexed token0, address indexed token1, address pair, uint);
-
-    function feeTo() epragma solidity =0.5.16;
-
 import './interfaces/IUniswapV2Factory.sol';
 import './UniswapV2Pair.sol';
 
 contract UniswapV2Factory is IUniswapV2Factory {
-    address public feeTo;
-    address public feeToSetter;
+    address public feeTo;           //sets a portion of the .3% fee to go to a specific address
+    address public feeToSetter;     //the address with permission to change feeTo
     
+
+    //getPair shows the matching pairs of tokens being swapped: for us it will be our deployed ERC20 and the USDC address: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
     mapping(address => mapping(address => address)) public getPair;
 
-    /*
+
     address[] public allPairs;
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
-    constructor(address _feeToSetter) public {
-        feeToSetter = _feeToSetter;
+    constructor() public {
+        feeToSetter = msg.sender; //ammended to make the fee setter equal to the contract creator
     }
 
     function allPairsLength() external view returns (uint) {
@@ -53,20 +50,8 @@ contract UniswapV2Factory is IUniswapV2Factory {
         feeTo = _feeTo;
     }
 
-    function setFeeToSetter(address _feeToSetter) external {
+     function setFeeToSetter(address _feeToSetter) external {
         require(msg.sender == feeToSetter, 'UniswapV2: FORBIDDEN');
         feeToSetter = _feeToSetter;
     }
-}xternal view returns (address);
-    function feeToSetter() external view returns (address);
-
-    function getPair(address tokenA, address tokenB) external view returns (address pair);
-    function allPairs(uint) external view returns (address pair);
-    function allPairsLength() external view returns (uint);
-
-    function createPair(address tokenA, address tokenB) external returns (address pair);
-
-    function setFeeTo(address) external;
-    function setFeeToSetter(address) external;
-    */
 }
