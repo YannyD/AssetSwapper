@@ -1,5 +1,4 @@
 pragma solidity >=0.5.0;
-//pool tokens are not necessarily relevant to our work, are they?
 
 import './interfaces/IUniswapV2ERC20.sol';
 import './libraries/SafeMath.sol';
