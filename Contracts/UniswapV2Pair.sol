@@ -1,19 +1,19 @@
 pragma solidity >=0.5.0;
 
-//import './interfaces/IUniswapV2Pair.sol';
-//import './UniswapV2ERC20.sol';
+import './interfaces/IUniswapV2Pair.sol';
+import './UniswapV2ERC20.sol';
 import './libraries/Math.sol';
 import './libraries/UQ112x112.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IUniswapV2Factory.sol';
-//import './interfaces/IUniswapV2Callee.sol';
+import './interfaces/IUniswapV2Callee.sol';
 
 contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
-    /*
+   
     using SafeMath  for uint;
     using UQ112x112 for uint224;
-
     uint public constant MINIMUM_LIQUIDITY = 10**3;
+
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
 
     address public factory;
@@ -36,18 +36,18 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         unlocked = 1;
     }
 
-    function getReserves() public view returns (uint112 _reserve0, uint112 _reserve1, uint32 _blockTimestampLast) {
+function getReserves() public view returns (uint112 _reserve0, uint112 _reserve1, uint32 _blockTimestampLast) {
         _reserve0 = reserve0;
         _reserve1 = reserve1;
         _blockTimestampLast = blockTimestampLast;
     }
 
-    function _safeTransfer(address token, address to, uint value) private {
+function _safeTransfer(address token, address to, uint value) private {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
         require(success && (data.length == 0 || abi.decode(data, (bool))), 'UniswapV2: TRANSFER_FAILED');
     }
 
-    event Mint(address indexed sender, uint amount0, uint amount1);
+event Mint(address indexed sender, uint amount0, uint amount1);
     event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
     event Swap(
         address indexed sender,
@@ -63,14 +63,14 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         factory = msg.sender;
     }
 
-    // called once by the factory at time of deployment
+// called once by the factory at time of deployment
     function initialize(address _token0, address _token1) external {
         require(msg.sender == factory, 'UniswapV2: FORBIDDEN'); // sufficient check
         token0 = _token0;
         token1 = _token1;
     }
 
-    // update reserves and, on the first call per block, price accumulators
+// update reserves and, on the first call per block, price accumulators
     function _update(uint balance0, uint balance1, uint112 _reserve0, uint112 _reserve1) private {
         require(balance0 <= uint112(-1) && balance1 <= uint112(-1), 'UniswapV2: OVERFLOW');
         uint32 blockTimestamp = uint32(block.timestamp % 2**32);
@@ -86,7 +86,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         emit Sync(reserve0, reserve1);
     }
 
-    // if fee is on, mint liquidity equivalent to 1/6th of the growth in sqrt(k)
+// if fee is on, mint liquidity equivalent to 1/6th of the growth in sqrt(k)
     function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns (bool feeOn) {
         address feeTo = IUniswapV2Factory(factory).feeTo();
         feeOn = feeTo != address(0);
@@ -107,7 +107,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         }
     }
 
-    // this low-level function should be called from a contract which performs important safety checks
+// this low-level function should be called from a contract which performs important safety checks
     function mint(address to) external lock returns (uint liquidity) {
         (uint112 _reserve0, uint112 _reserve1,) = getReserves(); // gas savings
         uint balance0 = IERC20(token0).balanceOf(address(this));
@@ -131,7 +131,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         emit Mint(msg.sender, amount0, amount1);
     }
 
-    // this low-level function should be called from a contract which performs important safety checks
+// this low-level function should be called from a contract which performs important safety checks
     function burn(address to) external lock returns (uint amount0, uint amount1) {
         (uint112 _reserve0, uint112 _reserve1,) = getReserves(); // gas savings
         address _token0 = token0;                                // gas savings
@@ -156,7 +156,7 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         emit Burn(msg.sender, amount0, amount1, to);
     }
 
-    // this low-level function should be called from a contract which performs important safety checks
+// this low-level function should be called from a contract which performs important safety checks
     function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data) external lock {
         require(amount0Out > 0 || amount1Out > 0, 'UniswapV2: INSUFFICIENT_OUTPUT_AMOUNT');
         (uint112 _reserve0, uint112 _reserve1,) = getReserves(); // gas savings
@@ -195,9 +195,8 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         _safeTransfer(_token1, to, IERC20(_token1).balanceOf(address(this)).sub(reserve1));
     }
 
-    // force reserves to match balances
+// force reserves to match balances
     function sync() external lock {
         _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
     }
-    */
 }
